@@ -33,52 +33,72 @@ function MapaDetener() {
     map.remove();
     map = undefined;
 }
-function MapaSetView(lat, lon) {
+
+function MapaSetViewMiUbic(lat, lon) {
+
+    if (map == undefined) return;
 
     if (setvflag == 1) {
         map.setView([lat, lon]);
         setvflag = 0;
     }
-
-    
-    //map.locate({ setView: true, maxZoom: 16 });
 }
 
 function MapaPintar(puntos) {        
 
     if (map == undefined) return;
 
-    if (map.hasLayer(marcasMapa)) {
+    /*if (map.hasLayer(marcasMapa)) {
         map.removeLayer(marcasMapa);
         marcasMapa = L.layerGroup();
     }
+    */
+    //console.log("puntos, " + puntos.length);
 
-    if (puntos.length > 0)
-        MapaSetView(puntos[0].lat, puntos[0].lon);
     
-    let c;
+    /*let c;
     let arrc = [];
     puntos.forEach(element => {
                 
         c = L.marker([element.lat, element.lon], {
             title: element.user
-        });
-        
-//        let c = L.popup()
-//            .setLatLng([element.lat, element.lon])
-//            .setContent("I am a standalone popup." + element.user);
-            
-        //circs.push(c);        
+        });        
         
         marcasMapa.addLayer(c);               
         arrc.push(c);
     });    
 
     map.addLayer(marcasMapa);    
+    */
     //c.bindPopup('xa', { autoPan: false}).openPopup();
-    arrc.forEach(function (value) {
-        value.bindPopup(value.options.title, { autoPan: false }).openPopup();
+
+    
+    map.eachLayer(function (layer) {
+        //if (layer.options.title != undefined && layer.options.title != "")
+        if (layer._leaflet_id != 26)
+            map.removeLayer(layer);
     });
+    puntos.forEach(element => {
+        let n = Math.random() / 100;
+        n = 0;
+
+        let m = L.marker([element.lat + n, element.lon + n], {
+            title: element.user            
+        }).addTo(map);
+
+        let c;
+        if (element.user == 'Tu')
+            c = L.circle([element.lat, element.lon], {
+                color: 'blue',                
+                fillOpacity: 0.5,
+                stroke: false,                
+                radius: 70
+            }).addTo(map);                        
+
+        m.bindPopup(element.user, { autoPan: false, autoClose: false }).openPopup();
+        //m.bindTooltip(element.user, { autoPan: false, autoClose: false }).openPopup();
+    });
+
 
     /*L.marker([-26, -65]).addTo(map)
         .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')

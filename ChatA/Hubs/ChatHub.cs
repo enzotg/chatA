@@ -51,7 +51,7 @@ namespace ChatA.Hubs
                     ConnectionId = y.ConnectionId,
                     Lat = y.UbicActLat,
                     Lon = y.UbicActLng,
-                    User = y.Nombre
+                    User = y.ConnectionId == Context.ConnectionId ? "Tu" : y.Nombre 
                 })
                 .ToList();
             return res;

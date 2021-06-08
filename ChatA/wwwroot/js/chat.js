@@ -255,11 +255,11 @@ function watcher() {
 function successPositionWatch(e) {
 
     //MapaSetView(e.coords.latitude, e.coords.longitude);
-
-
     //enviar datos de pos
     connection.invoke("watchReg", e.coords.latitude, e.coords.longitude, currentUser);
-    console.log(e.coords.latitude, e.coords.longitude);
+
+    MapaSetViewMiUbic(e.coords.latitude, e.coords.longitude);
+    //console.log(e.coords.latitude, e.coords.longitude);
 
 }
 function errorPosition(e) {

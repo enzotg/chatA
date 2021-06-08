@@ -57,7 +57,7 @@
     }
 
         .cont-usuario-inner #txtUsuario {
-            font-size: 1rem;
+            
             width: 100%;
             flex: 3;
         }
@@ -135,7 +135,7 @@
         flex-direction: column;
         height: calc(100vh - 112px);
         min-height: 0;
-        min-width: 0;
+        xmin-width: 0;
     }
 
     .cont-lista-mens {
@@ -145,7 +145,7 @@
         padding: 0 16px;
         xborder: 2px solid silver;
         border-radius: 4px;
-        margin: 16px;
+        margin: 0 16px;
         background-color: rgb(35, 42, 63);
         xoverflow-y: scroll;
         transition: .3s linear;
@@ -155,16 +155,21 @@
         flex: 0 0 0px;
         min-height: 0px;
         max-height: 0px;
-        border: 1px solid silver;
+        xborder: 1px solid silver;
         padding: 16px;
         transition: 0.4s linear all;
-        overflow: hidden;
-        width:90%;
+        overflow: auto;
+        width: 100%;
+        
         xdisplay: none;
     }
 
-    .cont-footer-inner {
-        border: 1px solid black;
+    .cont-footer-inner {                
+        height:100%;
+        width:calc(100% - 32px);
+
+        overflow:hidden;
+        
         /*    border-radius: 8px;
             height: 100%;
             overflow-y: scroll;*/
@@ -248,8 +253,9 @@
             <ul id="listaMens" class="lista-mens"></ul>
         </section>
         <section class="cont-footer">
-            <div id="mapid" style="height:90%;width:100%;"></div>
-
+            <div class="cont-footer-inner">
+                <div id="mapid" style="height:90%;width:100%;border-radius:4px;"></div>
+            </div>
         </section>
     </div>
 
