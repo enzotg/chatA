@@ -48,7 +48,7 @@ document.getElementById("btnM").addEventListener("click", btnMClick);
 
 function onLoad() {
 
-    document.getElementById("txtUsuario").value = 'user' + Math.round(Math.random() * 99);
+    //document.getElementById("txtUsuario").value = 'user' + Math.round(Math.random() * 99);
     document.getElementById("btnEnviar").disabled = true;    
 
     start();
@@ -62,7 +62,16 @@ function start() {
     connection.start().then(function () {
 
         document.getElementById("btnEnviar").disabled = false;
-        currentUser = document.getElementById("txtUsuario").value;
+
+        connection.invoke("GetUserName")
+            .then(function (user) {
+                
+                document.getElementById("txtUsuario").value = user;
+                currentUser = user;
+            })
+            .catch(function (err) {
+                return console.error(err.toString());
+            });        
         
         watcher();
         estadoConn();
@@ -78,6 +87,7 @@ function start() {
 function stop() {
     connection.stop();
     enviarLog("stop");
+    window.location.href = "/Account/Logout";
 }
 
 function estadoConn() {

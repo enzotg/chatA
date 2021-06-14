@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.SignalR;
 using ChatA.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace ChatA.Hubs
 {
@@ -13,24 +15,37 @@ namespace ChatA.Hubs
 
         public override Task OnConnectedAsync()
         {
+            HttpContextAccessor h = new HttpContextAccessor();
+            string userName = h.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            string userId = h.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            _clientesCon.Add(new ClienteCon
+            var res = _clientesCon.FirstOrDefault(x => x.UserId == userId);
+            if(res==null)
+                _clientesCon.Add(new ClienteCon
+                {
+                    ConnectionId = Context.ConnectionId,
+                    Nombre = userName ,
+                    DireccionOrig = "",
+                    DireccionDest = "",
+                    Grupo = "",
+                    UbicActLat = 0,
+                    UbicActLng = 0,
+                    Dif = 0,
+                    FechaIngreso = DateTime.Now,
+                    UserId = userId
+                });
+            else
             {
-                ConnectionId = Context.ConnectionId,
-                Nombre = "",
-                DireccionOrig = "",
-                DireccionDest = "",
-                Grupo = "",
-                UbicActLat = 0,
-                UbicActLng = 0,
-                Dif = 0,
-                FechaIngreso = DateTime.Now,
-                UserId = ""
-            });
+                res.ConnectionId = Context.ConnectionId;
+            }
 
             return base.OnConnectedAsync();
         }
-
+        public string GetUserName()
+        {
+            HttpContextAccessor h = new HttpContextAccessor();            
+            return h.HttpContext.User.FindFirstValue(ClaimTypes.Name);
+        }
         public void watchReg(double UbicActLat, double UbicActLng, string User)
         {
             var cliente = _clientesCon.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault();
@@ -51,7 +66,7 @@ namespace ChatA.Hubs
                     ConnectionId = y.ConnectionId,
                     Lat = y.UbicActLat,
                     Lon = y.UbicActLng,
-                    User = y.ConnectionId == Context.ConnectionId ? "Tu" : y.Nombre 
+                    User = y.Nombre 
                 })
                 .ToList();
             return res;

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ChatA.Data;
 using ChatA.Hubs;
+using ChatA.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,12 +33,56 @@ namespace ChatA
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.MinimumSameSitePolicy = SameSiteMode.None;               
+                
             });
 
+            services.AddMvc();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<ChatContext>(op =>
+                op.UseSqlite("Data Source=chata.db"));
+
+            services.AddDefaultIdentity<AppUser>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+
+            }).AddEntityFrameworkStores<ChatContext>( );
+
+            /*services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Account/login");
+                    options.LogoutPath = new PathString("/Account/logout");
+
+                });*/
+
+            
+            services.ConfigureApplicationCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";                    
+                    
+                });
+
+
+            /*
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Account/Login";
+                options.LogoutPath = $"/Account/Logout";
+            });*/
+            /*
+            services.Configure<CookieAuthenticationOptions>(options =>
+            {
+                options.LoginPath = new PathString("/Account/Login");
+            });            */
+
             services.AddSignalR();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,10 +97,13 @@ namespace ChatA
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            
+            //app.UseHttpsRedirection();
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseAuthentication();
+
+            //app.UseCookiePolicy();
             app.UseSignalR(r =>
             {
                 r.MapHub<ChatHub>("/chathub");

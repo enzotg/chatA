@@ -12,18 +12,6 @@
 }
 
 <style>
-    html {
-        font-size: 85%;
-    }
-
-    body {
-        box-sizing: border-box;
-        background-color: white;
-        padding: 0;
-        margin: 0;
-        font-family: 'Segoe UI', 'heebo', sans-serif;
-        background-color: black;
-    }
 
     ::-webkit-scrollbar {
         width: 8px;
@@ -122,13 +110,7 @@
         color: rgb(173, 235, 247);
     }
 
-    .contenedor {
-        font-size: .9rem;
-        color: black;
-        background-image: linear-gradient(to bottom right, white 20%, rgb(35, 42, 63) 110% );
-        max-height: 100vh;
-        overflow: hidden;
-    }
+
 
     .cuerpo {
         display: flex;
@@ -149,6 +131,7 @@
         background-color: rgb(35, 42, 63);
         xoverflow-y: scroll;
         transition: .3s linear;
+        position:relative;
     }
 
     .cont-footer {
@@ -180,6 +163,12 @@
         padding: 0;
         overflow-y: scroll;
         height: 94%;
+        width:94%;
+        margin:0;
+        
+        position:absolute;
+        top:50%;
+        transform:translateY(-50%);
     }
 
     .msg-mensaje {
@@ -234,10 +223,10 @@
     <section class="cont-usuario">
         <header>
             <div class="cont-usuario-inner">
-                <input id="txtUsuario" type="text" placeholder="Nick">
+                <input id="txtUsuario" type="text" placeholder="Nick" readonly>
                 <input id="btnM" type="button" value="Mxp">
                 <input id="btnA" type="button" value="Start">
-                <input id="btnB" type="button" value="Stop">
+                <input id="btnB" type="button" value="Salir" >
                 <input id="txtEstado" type="text">
             </div>
         </header>
