@@ -10,6 +10,7 @@ let connection =
 
 let currentUser;
 let loopGetPos;
+let ultPos;
 
 connection.on("ReceiveMessage", function (user, message) {
 
@@ -52,7 +53,7 @@ function onLoad() {
     document.getElementById("btnEnviar").disabled = true;    
 
     start();
-    toggle(0);
+    //toggle(0);
     estadoConn();
     setInterval(estadoConn, 5000);
 }
@@ -75,7 +76,6 @@ function start() {
         
         watcher();
         estadoConn();
-
         loopGetPos = setInterval(getPos, 5000);        
 
     }).catch(function (err) {
@@ -101,7 +101,7 @@ function btnMClick(e) {
 function txtTextoFocus() {    
     window.document.scrollingElement.scrollTop =
         window.document.scrollingElement.scrollHeight;
-    toggle(1);    
+    //toggle(1);    
 }
 
 function keydown(e) {
@@ -201,6 +201,27 @@ function AgregarMensaje(user, connectionId, mensajeTexto, ch) {
 
 function toggle(e)
 {
+    document.getElementById("contmap").classList.toggle("top-1");
+    if (document.getElementById("contmap").classList.contains("top-1")) {
+
+        MapaIniciar();
+        loopGetPos = setInterval(getPos, 5000);        
+        if (ultPos)
+            MapaSetViewMiUbic(ultPos.coords.latitude, ultPos.coords.longitude);
+    }
+    else {
+        clearInterval(loopGetPos);
+        setTimeout(MapaDetener, 1000);
+    }
+        
+        
+    /*
+    if (document.getElementById("contmap").classList.contains("block"))
+        document.getElementById("contmap").classList.remove("block");
+    else
+        document.getElementById("contmap").classList.add("block");
+    */
+    return;
 
     let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
     vh -= 142;
@@ -266,6 +287,7 @@ function successPositionWatch(e) {
 
     //MapaSetView(e.coords.latitude, e.coords.longitude);
     //enviar datos de pos
+    ultPos = e;
     connection.invoke("watchReg", e.coords.latitude, e.coords.longitude, currentUser);
 
     MapaSetViewMiUbic(e.coords.latitude, e.coords.longitude);

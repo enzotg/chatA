@@ -25,7 +25,8 @@ function MapaIniciar() {
         maxZoom: 17
     }).addTo(map);    
     map.setZoom(15);    
-    marcasMapa = L.layerGroup();
+    //marcasMapa = L.layerGroup();
+    setvflag = 1;
 }
 function MapaDetener() {
     if (map == undefined) return;
@@ -37,6 +38,7 @@ function MapaDetener() {
 function MapaSetViewMiUbic(lat, lon) {
 
     if (map == undefined) return;
+    if (lat == undefined || lon == undefined) return;
 
     if (setvflag == 1) {
         map.setView([lat, lon]);
@@ -48,65 +50,44 @@ function MapaPintar(puntos) {
 
     if (map == undefined) return;
 
-    /*if (map.hasLayer(marcasMapa)) {
-        map.removeLayer(marcasMapa);
-        marcasMapa = L.layerGroup();
-    }
-    */
-    //console.log("puntos, " + puntos.length);
-
-    
-    /*let c;
-    let arrc = [];
     puntos.forEach(element => {
+
+        let noex = true;
+        map.eachLayer(function (layer) {            
+            if (layer._url == undefined)
+                if (layer.options.title == element.user) {
+
                 
-        c = L.marker([element.lat, element.lon], {
-            title: element.user
-        });        
+                    if (layer._latlng.lat != element.lat || layer._latlng.lng != element.lon) {
+                        map.removeLayer(layer);
+                        noex = true;
+                    }
+                    else
+                        noex = false;
+                }
+                    
+        });
+
+        if (noex) {
+
         
-        marcasMapa.addLayer(c);               
-        arrc.push(c);
-    });    
-
-    map.addLayer(marcasMapa);    
-    */
-    //c.bindPopup('xa', { autoPan: false}).openPopup();
-
-    
-    map.eachLayer(function (layer) {
-        //if (layer.options.title != undefined && layer.options.title != "")
-        if (layer._leaflet_id != 26)
-            map.removeLayer(layer);
-    });
-    puntos.forEach(element => {
-        let n = Math.random() / 100;
-        n = 0;
-
-        let m = L.marker([element.lat + n, element.lon + n], {
-            title: element.user            
-        }).addTo(map);
-
-        let c;
+            let m = L.marker([element.lat, element.lon], {
+                title: element.user            
+            }).addTo(map);
+            m.bindPopup(element.user, { autoPan: false, autoClose: false }).openPopup();
+        }
+        /*let c;
         if (element.user == 'Tu')
             c = L.circle([element.lat, element.lon], {
                 color: 'blue',                
                 fillOpacity: 0.5,
                 stroke: false,                
                 radius: 70
-            }).addTo(map);                        
+            }).addTo(map);*/
 
-        m.bindPopup(element.user, { autoPan: false, autoClose: false }).openPopup();
-        //m.bindTooltip(element.user, { autoPan: false, autoClose: false }).openPopup();
+        
+        
     });
-
-
-    /*L.marker([-26, -65]).addTo(map)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-        .openPopup();*/
-
-    //----------------------------------
-    //map.eachLayer(function (layer) {
-//        console.log(layer.options.title)    });
 
 }
 

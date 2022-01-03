@@ -45,43 +45,45 @@
     }
 
         .cont-usuario-inner #txtUsuario {
-            
             width: 100%;
             flex: 3;
-        }
-
-        .cont-usuario-inner #btnM, #btnA, #btnB {
-            border: none;
-            background-color: transparent;
-            height: 24px;
-            margin-left: 8px;
-            width: 100%;
-            flex: 1;
-            color: lightblue;
-            xborder: rgb(16, 21, 73) 1px solid;
-            border-radius: 4px;
-            visibility: visible;
-        }
-
-        .cont-usuario-inner #btnM {
-            visibility: visible;
-        }
-
-        .cont-usuario-inner #txtEstado {
-            font-size: .8rem;
             background-color: transparent;
             border: none;
-            color: silver;
-            text-align: right;
-            width: 100%;
-            flex: 2;
+            color: rgb(173, 235, 247);
+            font-size: 1.1rem;
         }
+
+    .cont-usuario-inner #btnM, #btnA, #btnB {
+        border: none;
+        background-color: transparent;
+        height: 24px;
+        margin-left: 8px;
+        width: 100%;
+        flex: 1;
+        color: lightblue;
+        xborder: rgb(16, 21, 73) 1px solid;
+        border-radius: 4px;
+        visibility: visible;
+    }
+
+    .cont-usuario-inner #btnM {
+        visibility: visible;
+    }
+
+    .cont-usuario-inner #txtEstado {
+        font-size: .8rem;
+        background-color: transparent;
+        border: none;
+        color: silver;
+        text-align: right;
+        width: 100%;
+        flex: 2;
+    }
 
     .cont-texto {
         height: 24px;
         padding: 16px;
-        font-size: inherit;
-        xborder: 1px solid black;
+        font-size: inherit;        
     }
 
     .cont-texto-inner {
@@ -110,8 +112,6 @@
         color: rgb(173, 235, 247);
     }
 
-
-
     .cuerpo {
         display: flex;
         flex-direction: column;
@@ -121,9 +121,10 @@
     }
 
     .cont-lista-mens {
-        flex: 1 0 50px;
+        xflex: 1 0 50px;
+        
         min-height: 50px;
-        max-height: 50px;
+        height: calc(100vh - 120px);
         padding: 0 16px;
         xborder: 2px solid silver;
         border-radius: 4px;
@@ -134,28 +135,11 @@
         position:relative;
     }
 
-    .cont-footer {
-        flex: 0 0 0px;
-        min-height: 0px;
-        max-height: 0px;
-        xborder: 1px solid silver;
-        padding: 16px;
-        transition: 0.4s linear all;
+    .cont-footer {        
+        height: 50px;                
+        padding: 16px;        
         overflow: auto;
-        width: 100%;
-        
-        xdisplay: none;
-    }
-
-    .cont-footer-inner {                
-        height:100%;
-        width:calc(100% - 32px);
-
-        overflow:hidden;
-        
-        /*    border-radius: 8px;
-            height: 100%;
-            overflow-y: scroll;*/
+        width: 100%;                
     }
 
     .lista-mens {
@@ -210,14 +194,44 @@
         cursor: pointer;
     }
 
-    .msg-height0 {
-        max-height: 0;
+    .cont-map {
+        position: absolute;
+        margin: auto;
+        background-color: white;
+        width: calc(100% - 26px);
+        height: 80%;
+        top: -100%;
+        border: 1px solid gray;
+        border-radius: 4px;
+        box-shadow: rgba(0,0,0,.3) 0px 4px;
+        padding: 2px 12px;
+        transition: .5s linear;
+        z-index: 1;
     }
-
-    .msg-height5 {
-        max-height: 500px;
+    .top-1{        
+        top:1px;
     }
 </style>
+
+<div id="contmap" class="cont-map">
+    <div style="
+    cursor:pointer;
+    xfloat:right;
+    text-align:end;
+    border:1px solid silver;
+    border-radius:4px;
+    padding: 0 4px;
+    background-color:white;
+    position:absolute;
+    right:16px;
+    top:16px;
+    z-index:800;
+    font-size:1.8rem; 
+    line-height:2rem;
+    font-weight:500;color:black;" onclick="toggle()">x</div>
+    
+    <div id="mapid" style="height:94%; width:100%;border-radius:4px;border:1px solid black"></div>
+</div>
 
 <div class="contenedor">
     <section class="cont-usuario">
@@ -226,7 +240,7 @@
                 <input id="txtUsuario" type="text" placeholder="Nick" readonly>
                 <input id="btnM" type="button" value="Mxp">
                 <input id="btnA" type="button" value="Start">
-                <input id="btnB" type="button" value="Salir" >
+                <input id="btnB" type="button" value="Salir">
                 <input id="txtEstado" type="text">
             </div>
         </header>
@@ -237,16 +251,12 @@
             <input id="btnEnviar" type="button" value=">">
         </div>
     </section>
-    <div class="cuerpo">
-        <section class="cont-lista-mens">
-            <ul id="listaMens" class="lista-mens"></ul>
-        </section>
-        <section class="cont-footer">
-            <div class="cont-footer-inner">
-                <div id="mapid" style="height:90%;width:100%;border-radius:4px;"></div>
-            </div>
-        </section>
-    </div>
+    <section class="cont-lista-mens">
+        <ul id="listaMens" class="lista-mens"></ul>
+    </section>
+    <section class="cont-footer">
+
+    </section>
 
 </div>
 
