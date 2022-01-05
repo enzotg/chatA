@@ -1,5 +1,5 @@
 {
-  "name": "ChatA",
+  "name": "chata",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,5 +12,10 @@
   "dependencies": {
     "@microsoft/signalr": "^5.0.6",
     "leaflet": "1.7.1"
-  }
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-sass": "4.0.1"
+  },
+  "bundledDependencies": true
 }

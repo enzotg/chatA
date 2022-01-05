@@ -3,66 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
+    <link href="~/css/layout.css" rel="stylesheet" />
+
     <title>@ViewData["Title"] - ChatA</title>
-    <style>
-        html {
-            font-size: 85%;
-            font-family: 'Segoe UI', 'heebo', sans-serif;
-        }
 
-        body {
-            box-sizing: border-box;
-            
-            padding: 0;
-            margin: 0;
-        }
-        .contenedor {
-            font-size: .9rem;
-            color: black;
-            background-image: linear-gradient(to bottom right, white 20%, rgb(35, 42, 63) 110% );
-            max-height: 100vh;
-            overflow: hidden;            
-        }
-        button {
-            border:none;
-            width: 100px;            
-            padding:8px;
-            border-radius: 4px;
-            background-color: rgb(16, 21, 73);
-            color: rgb(173, 235, 247);
-        }
-        .contenedor-inner {
-            margin: 16px;
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-        }
-        .contenedor-inner div{
-            padding:2px;
-        }
 
-        .btn-primario {
-            border: none;
-            border-radius: 4px;
-        }
 
-        h1 {
-            margin: 16px;
-        }
-
-    </style>
-    <!--
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
-    -->
 </head>
 <body>
     <partial name="_CookieConsentPartial" />
@@ -70,30 +17,6 @@
 
     @RenderBody()
 
-
-
-    <!--
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-    -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

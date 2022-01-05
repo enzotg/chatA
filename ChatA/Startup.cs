@@ -52,15 +52,6 @@ namespace ChatA
 
 
             }).AddEntityFrameworkStores<ChatContext>( );
-
-            /*services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/Account/login");
-                    options.LogoutPath = new PathString("/Account/logout");
-
-                });*/
-
             
             services.ConfigureApplicationCookie(options =>
                 {
@@ -68,21 +59,7 @@ namespace ChatA
                     
                 });
 
-
-            /*
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = $"/Account/Login";
-                options.LogoutPath = $"/Account/Logout";
-            });*/
-            /*
-            services.Configure<CookieAuthenticationOptions>(options =>
-            {
-                options.LoginPath = new PathString("/Account/Login");
-            });            */
-
-            services.AddSignalR();
-            
+            services.AddSignalR();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
