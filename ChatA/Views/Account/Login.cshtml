@@ -1,0 +1,48 @@
+﻿@model ChatA.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+
+</style>
+<div class="contenedor">    
+    <h1>Login</h1>
+    <hr />
+
+    <form method="post" enctype="multipart/form-data" asp-action="Login">
+        <div class="contenedor-inner">
+            <div>User name</div>
+            <div>
+                <input asp-for="UserName" type="text" class="form-control" placeholder="User Name" required>
+                <span asp-validation-for="UserName" class="text-warning"></span>
+            </div>
+
+            <div>Password</div>
+            <div>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
+                <span asp-validation-for="Password" class="text-warning"></span>
+            </div>
+            <div><label asp-for="RememberMe" class="form-check-label"></label></div>
+            <div>
+                <input asp-for="RememberMe" type="checkbox" class="checkbox-inline">
+            </div>
+            <div></div>
+            <div>
+                <button type="submit" class="btn btn-success">
+                    Login
+                </button>
+                <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Register", "Account")'">
+                    Register
+                </button>
+            </div>
+            <div></div>
+            <div></div>
+        </div>
+    </form>
+    <div></div>
+    
+</div>
+
+
+

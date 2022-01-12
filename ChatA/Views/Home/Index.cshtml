@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<link href="~/css/homeindex.css" rel="stylesheet" />
+
+@section Scripts    {
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <link href="~/lib/leaflet/dist/leaflet.css" rel="stylesheet" />
+    <script src="~/lib/leaflet/dist/leaflet.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/mapalea.js"></script>
+}
+
+
+<div id="contmap" class="cont-map">
+    <div class="cerrar-mapa" onclick="toggle()">x</div>
+    
+    <div id="mapid" ></div>
+</div>
+
+<div class="contenedor">
+    <section class="cont-usuario">
+        <header>
+            <div class="cont-usuario-inner">
+                <input id="txtUsuario" type="text" placeholder="Nick" readonly>
+                <input id="btnM" type="button" value="Mapa">
+                <input id="btnA" type="button" value="Inicia">
+                <input id="btnB" type="button" value="Salir">
+                <input id="txtEstado" type="text">
+            </div>
+        </header>
+    </section>
+    <section class="cont-texto">
+        <div class="cont-texto-inner">
+            <input id="txtTexto" type="text" value="" placeholder="Texto">
+            <input id="btnEnviar" type="button" value=">">
+        </div>
+    </section>
+    <section class="cont-lista-mens">
+        <ul id="listaMens" class="lista-mens"></ul>
+    </section>
+    <section class="cont-footer">
+
+    </section>
+
+</div>
+
